@@ -29,8 +29,7 @@ def dump_frames(vid_item):
             # cv2.imwrite will write BGR into RGB images
             cv2.imwrite('{}/img_{:05d}.jpg'.format(out_full_path, i + 1), img)
         else:
-            print('[Warning] length inconsistent!'
-                  'Early stop with {} out of {} frames'.format(i + 1, videolen))
+            print('[Warning] length inconsistent! Early stop with {} out of {} frames'.format(i + 1, videolen))
             break
     print('{} done with {} frames'.format(vid_name, videolen))
     sys.stdout.flush()
@@ -39,25 +38,13 @@ def dump_frames(vid_item):
 
 def parse_args():
     parser = argparse.ArgumentParser(description='extract frames')
-    parser.add_argument('src_dir', type=str)
-    parser.add_argument('out_dir', type=str)
+    parser.add_argument('--src_dir', type=str, default="/data/vidoes/ucf101/videos")
+    parser.add_argument('--out_dir', type=str, default="/data/vidoes/ucf101/rawframes")
     parser.add_argument('--level', type=int, choices=[1, 2], default=2)
     parser.add_argument('--num_worker', type=int, default=8)
-    parser.add_argument(
-        "--ext",
-        type=str,
-        default='avi',
-        choices=['avi', 'mp4'],
-        help='video file extensions')
-
-    parser.add_argument(
-        "--resume",
-        action='store_true',
-        default=False,
-        help='resume optical flow extraction '
-        'instead of overwriting')
+    parser.add_argument("--ext", type=str, default='avi', choices=['avi', 'mp4'], help='video file extensions')
+    parser.add_argument("--resume", action='store_true', default=False, help='resume optical flow extraction instead of overwriting')
     args = parser.parse_args()
-
     return args
 
 
@@ -89,8 +76,7 @@ if __name__ == '__main__':
         print('Resuming. number of videos to be done: ', len(fullpath_list))
 
     if args.level == 2:
-        vid_list = list(
-            map(lambda p: osp.join('/'.join(p.split('/')[-2:])), fullpath_list))
+        vid_list = list(map(lambda p: osp.join('/'.join(p.split('/')[-2:])), fullpath_list))
     elif args.level == 1:
         vid_list = list(map(lambda p: p.split('/')[-1], fullpath_list))
 

@@ -92,32 +92,23 @@ def parse_ucf101_splits(level):
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Build file list')
-    parser.add_argument(
-        'frame_path', type=str, help='root directory for the frames')
+    parser.add_argument('--frame_path', type=str, default="/data/vidoes/ucf101/rawframes", help='root directory for the frames')
     parser.add_argument('--rgb_prefix', type=str, default='img_')
     parser.add_argument('--num_split', type=int, default=3)
     parser.add_argument('--level', type=int, default=2, choices=[1, 2])
-    parser.add_argument(
-        '--format',
-        type=str,
-        default='rawframes',
-        choices=['rawframes', 'videos'])
-    parser.add_argument('--out_list_path', type=str, default='./')
+    parser.add_argument('--format', type=str, default='rawframes', choices=['rawframes', 'videos'])
+    parser.add_argument('--out_list_path', type=str, default='/data/vidoes/ucf101')
     parser.add_argument('--shuffle', action='store_true', default=False)
     args = parser.parse_args()
-
     return args
 
 
 def main():
     args = parse_args()
-
     if args.level == 2:
-
         def key_func(x):
             return '/'.join(x.split('/')[-2:])
     else:
-
         def key_func(x):
             return x.split('/')[-1]
 
